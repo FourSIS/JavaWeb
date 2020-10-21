@@ -62,23 +62,24 @@ $(document).ready(function () {
             if(!reg.test(input)){
                 warnInfo.text("用户名只能使用英文字母和数字，以字母开头，长度为4到15个字符");
             }
-        }
-
-        $.ajax({
-            type:"post",
-            url:"controller/checkUserAndEmail.do",
-            data:"userName="+input,
-            dataType:"json",
-            success:function (response) {
-                if(response.code==1){
-                    warnInfo.text(response.info);
-                }
-                else{
-                    warnInfo.text("该用户名可用");
-                    userNameOK = true;
-                }
+            else{
+                $.ajax({
+                    type:"post",
+                    url:"controller/checkUserAndEmail.do",
+                    data:"userName="+input,
+                    dataType:"json",
+                    success:function (response) {
+                        if(response.code==1){
+                            warnInfo.text(response.info);
+                        }
+                        else{
+                            warnInfo.text("该用户名可用");
+                            userNameOK = true;
+                        }
+                    }
+                });
             }
-        });
+        }
     });
 
 
@@ -109,26 +110,30 @@ $(document).ready(function () {
             warnInfo.text("邮箱不能为空");
         }
         else{
-            var reg = /[0-9a-zA-z]{0,8}@[0-9a-zA-z]{2,8}\\.com$/;
+            alert("email input="+input);
+            var reg = /^[0-9a-zA-Z_-]+@[0-9a-zA-Z_-]+\.com$/;
             if(!reg.test(input)){
                 warnInfo.text("邮箱格式不正确");
             }
-        }
-        $.ajax({
-            type:"post",
-            url:"controller/checkUserAndEmail.do",
-            data:"email="+input,
-            dataType:"json",
-            success:function (response) {
-                if(response.code==2){
-                    warnInfo.text(response.info);
-                }
-                else{
-                    warnInfo.text("该邮箱可用");
-                    emailOK = true;
-                }
+            else{
+                $.ajax({
+                    type:"post",
+                    url:"controller/checkUserAndEmail.do",
+                    data:"email="+input,
+                    dataType:"json",
+                    success:function (response) {
+                        if(response.code==2){
+                            warnInfo.text(response.info);
+                        }
+                        else{
+                            warnInfo.text("该邮箱可用");
+                            emailOK = true;
+                        }
+                    }
+                });
             }
-        });
+        }
+
     });
 
     $("#password").blur(function () {
