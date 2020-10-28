@@ -27,6 +27,11 @@ public class UserLogin {
             user_select.setPassword(resultSet.getString("password"));
             user_select.setUserName(resultSet.getString("userName"));
             user_select.setChrName(resultSet.getString("chrName"));
+            user_select.setEmail(resultSet.getString("email"));
+            user_select.setProvince(resultSet.getString("province"));
+            user_select.setProvinceCode(Integer.valueOf(resultSet.getString("provinceCode")));
+            user_select.setCity(resultSet.getString("city"));
+            user_select.setCityCode(Integer.valueOf(resultSet.getString("cityCode")));
         }
 
         resultSet.close();

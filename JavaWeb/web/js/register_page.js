@@ -110,7 +110,6 @@ $(document).ready(function () {
             warnInfo.text("邮箱不能为空");
         }
         else{
-            alert("email input="+input);
             var reg = /^[0-9a-zA-Z_-]+@[0-9a-zA-Z_-]+\.com$/;
             if(!reg.test(input)){
                 warnInfo.text("邮箱格式不正确");
@@ -173,18 +172,26 @@ $(document).ready(function () {
 
 
     $("#registerButton").click(function () {
-        var userName = $("#userName").val();
-        var realName = $("#realName").val();
-        var email = $("#email").val();
-        var password = $("#password").val();
+        var userInfo = [];
+        userInfo.push($("#userName").val());
+        userInfo.push($("#realName").val());
+        userInfo.push($("#email").val());
+        userInfo.push($("#password").val());
+        userInfo.push($("#provinces option:selected").text());      //获取选中的select的内容
+        userInfo.push($("#provinces").val());
+        userInfo.push($("#citys option:selected").text());
+        userInfo.push($("#citys").val());
         if(userNameOK && realNameOK && emailOK && provinceOK && cityOK && passwordOK){
             $.ajax({
                 type:"post",
                 url:"controller/registerUser.do",
-                data:"userName="+userName+"&realName="+realName+"&email="+email+"&password="+password,
-                success:function () {
-                    alert("注册成功，返回登录页面进行登录");
-                    window.location.href="/JavaWeb/login.html";
+                data:{userInfo:userInfo.join(",")},
+                dateType:"json",
+                success:function (response) {
+                    alert(response.info);
+                    if(response.code==0){
+                        window.location.href="/JavaWeb/login.html";
+                    }
                 }
             });
         }

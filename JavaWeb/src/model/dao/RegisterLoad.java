@@ -3,7 +3,6 @@ package model.dao;
 import model.util.Connection;
 import model.vo.City;
 import model.vo.Province;
-import model.vo.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,16 +44,4 @@ public class RegisterLoad {
         return citys;
     }
 
-    public static void RegisterUser(User user) throws Exception{
-        java.sql.Connection connection = con.getConnection();
-        System.out.println("userName="+user.getUserName()+"   password="+user.getPassword()+"   chrName="+user.getChrName()+"   email="+user.getEmail());
-        String sql = "Insert into t_user(userName,password,chrName,email) values(?,?,?,?)";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1,user.getUserName());
-        ps.setString(2,user.getPassword());
-        ps.setString(3,user.getChrName());
-        ps.setString(4,user.getEmail());
-        int updateCount = ps.executeUpdate();
-        con.closeConnection();
-    }
 }

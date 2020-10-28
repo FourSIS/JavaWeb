@@ -24,7 +24,9 @@ public class LoginServlet extends HttpServlet {
         String vcode = req.getParameter("vcode");
 
         UserLogin userLogin = new UserLogin();//Service对象
-        User user = new User(userName,password,"","");//前端输入的参数
+        User user = new User();//前端输入的参数
+        user.setUserName(userName);
+        user.setPassword(password);
         Map<String,Object> map = new HashMap<String, Object>();
         //验证码核对
         HttpSession session = req.getSession(); //取出session保存的正确验证码
